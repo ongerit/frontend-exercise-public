@@ -23,8 +23,8 @@ export default class Autocomplete {
       const results = data.filter(item => item.text.toLowerCase().includes(query.toLowerCase()));
       return results;
     } catch (error) {
-      console.info('Requesting data...');
-      return;
+      // [TO] Debug to log errors here
+      // console.info(error)
     }
   }
 
@@ -86,7 +86,7 @@ export default class Autocomplete {
           case 38: {
             if (this.selectionIndex > 0) {
               this.removeInputSelection();
-              this.selectionIndex--;
+              this.selectionIndex -= 1 ;
               listItems[this.selectionIndex].classList.add('input__selected');
             }
             break;
@@ -95,7 +95,7 @@ export default class Autocomplete {
           case 40: {
             if (this.selectionIndex < listItems.length - 1) {
               this.removeInputSelection();
-              this.selectionIndex++;
+              this.selectionIndex += 1 ;
               listItems[this.selectionIndex].classList.add('input__selected');
             }
             break;

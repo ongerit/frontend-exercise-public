@@ -26,6 +26,7 @@ export default class Autocomplete {
       // [TO] Debug to log errors here
       // console.info(error)
     }
+    return [];
   }
 
   updateDropdown(results) {
@@ -43,7 +44,7 @@ export default class Autocomplete {
       });
 
       // Pass the value to the onSelect callback
-      el.addEventListener('click', (event) => {
+      el.addEventListener('click', () => {
         const { onSelect } = this.options;
         if (typeof onSelect === 'function') onSelect(result.value, result.text, this.inputEl, this.listEl);
       });
@@ -77,16 +78,16 @@ export default class Autocomplete {
           // enter key
           case 13: {
             const result = listItems[this.selectionIndex];
-            result
-              ? this.getResultSelection(inputEl, result)
-              : null;
+            if (result) {
+              this.getResultSelection(inputEl, result);
+            }
             break;
           }
           // arrow up
           case 38: {
             if (this.selectionIndex > 0) {
               this.removeInputSelection();
-              this.selectionIndex -= 1 ;
+              this.selectionIndex -= 1;
               listItems[this.selectionIndex].classList.add('input__selected');
             }
             break;
@@ -95,11 +96,13 @@ export default class Autocomplete {
           case 40: {
             if (this.selectionIndex < listItems.length - 1) {
               this.removeInputSelection();
-              this.selectionIndex += 1 ;
+              this.selectionIndex += 1;
               listItems[this.selectionIndex].classList.add('input__selected');
             }
             break;
           }
+          default:
+            break;
         }
       }
     });
@@ -115,7 +118,8 @@ export default class Autocomplete {
   }
 
   getResultSelection(inputEl, result) {
-    inputEl.value = result.innerHTML;
+    const updateInputEl = inputEl;
+    updateInputEl.value = result.innerHTML;
     this.listEl.innerHTML = '';
   }
 

@@ -7,11 +7,12 @@ new ApiRequestAutocomplete(document.getElementById('gh-user'), {
   numOfResults: 10,
   url: 'https://api.github.com/search/users',
   onSelect: (ghUserId, ghUser, input, list) => {
-    input.value = ghUser;
-    list.innerHTML = '';
+    const updatedInputWithUser = input;
+    const removeList = list;
+    updatedInputWithUser.value = ghUser;
+    removeList.innerHTML = '';
   },
 });
-
 ```
 
 1. In the new api, the user can pass a `url` that is used by the api.

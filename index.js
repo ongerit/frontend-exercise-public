@@ -14,11 +14,11 @@ class ApiRequestAutocomplete extends Autocomplete {
     if (this.options.url) {
       apiRequest(this.options.url, query, this.options.numOfResults)
         .then((data) => {
-          data = data.items.map(user => ({
+          const users = data.items.map(user => ({
             text: user.login,
             value: user.id,
           }));
-          return this.updateDropdown(data);
+          return this.updateDropdown(users);
         });
     }
     // [TO] Get data for the dropdown
@@ -27,7 +27,9 @@ class ApiRequestAutocomplete extends Autocomplete {
       results = results.slice(0, this.options.numOfResults);
       this.updateDropdown(results);
     } catch (error) {
-      console.info('Returning data...');
+      // [TO] Debug here.
+      // Removed for eslint
+      // console.info('Returning data...');
     }
   }
 }
@@ -43,17 +45,22 @@ new Autocomplete(document.getElementById('state'), {
   data,
   numOfResults: 10,
   onSelect: (ghUserId, ghUser, input, list) => {
-    input.value = ghUser;
-    list.innerHTML = '';
+    const updatedInputWithUser = input;
+    const removeList = list;
+    updatedInputWithUser.value = ghUser;
+    removeList.innerHTML = '';
   },
 });
+
 
 // Github Users
 new ApiRequestAutocomplete(document.getElementById('gh-user'), {
   numOfResults: 10,
   url: 'https://api.github.com/search/users',
   onSelect: (ghUserId, ghUser, input, list) => {
-    input.value = ghUser;
-    list.innerHTML = '';
+    const updatedInputWithUser = input;
+    const removeList = list;
+    updatedInputWithUser.value = ghUser;
+    removeList.innerHTML = '';
   },
 });

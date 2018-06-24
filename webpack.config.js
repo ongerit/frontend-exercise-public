@@ -1,9 +1,10 @@
 const path = require('path');
+
 const outputPath = path.resolve(__dirname, 'dist');
 
 module.exports = {
   entry: {
-    bundle: './index.js'
+    bundle: './index.js',
   },
 
   output: {
@@ -19,11 +20,11 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           query: { cacheDirectory: true },
-        }
+        },
       },
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ],
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },

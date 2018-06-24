@@ -47,3 +47,13 @@ input {
   padding: 5px;
   border: 1px solid #ccc;
 }
+
+.input__selected {
+  background: #ccc;
+}
+/* [TO] Additions below*/
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
